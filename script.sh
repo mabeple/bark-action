@@ -41,8 +41,14 @@ request_body=${request_body%&}
 echo -e "${cyan}Request url${none}: ${request_url}"
 echo -e "${cyan}Request body${none}:\n${request_body//&/\\n}"
 
+request_auth=""
+if [[ -n "$INPUT_AUTH" ]]; then
+  request_auth="Authorization: Basic ${INPUT_AUTH}"
+fi
+
 http_code=$(curl -s -o /dev/null -w "%{http_code}" \
   -X POST \
+  ${request_auth:+-H "$request_auth"} \
   -d "$request_body" \
   "${request_url}")
 

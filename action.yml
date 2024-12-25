@@ -5,6 +5,9 @@ branding:
   icon: 'message-circle'
   color: 'red'
 inputs:
+  auth:
+    description: 'Bark server authorization'
+    required: false
   key:
     description: Secret key
     required: true
@@ -64,6 +67,7 @@ runs:
       shell: bash
       run: $GITHUB_ACTION_PATH/script.sh
       env:
+        INPUT_AUTH: ${{ inputs.auth }}
         INPUT_KEY: ${{ inputs.key }}
         INPUT_HOST: ${{ inputs.host }}
         INPUT_TITLE: ${{ inputs.title }}
