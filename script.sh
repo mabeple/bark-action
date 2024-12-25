@@ -41,10 +41,8 @@ request_body=${request_body%&}
 echo -e "${cyan}Request url${none}: ${request_url}"
 echo -e "${cyan}Request body${none}:\n${request_body//&/\\n}"
 
-# 发送请求
 http_code=$(curl -s -o /dev/null -w "%{http_code}" \
   -X POST \
-  -H "Content-Type: application/json; charset=utf-8" \
   -d "$request_body" \
   "${request_url}")
 
