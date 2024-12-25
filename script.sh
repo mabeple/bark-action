@@ -18,12 +18,39 @@ else
 fi
 
 request_url="${host}/${INPUT_KEY}/"
-request_body="title=${INPUT_TITLE}&body=${INPUT_BODY}&sound=${INPUT_SOUND}&isArchive=${INPUT_IS_ARCHIVE}&url=${INPUT_URL}&automaticallyCopy=${INPUT_AUTOMATICALLY_COPY}&copy=${INPUT_COPY}"
+
+# 创建 JSON 格式的请求体
+request_body=$(cat <<EOF
+{
+  "title": "${INPUT_TITLE}",
+  "subtitle": "${INPUT_SUBTITLE}",
+  "body": "${INPUT_BODY}",
+  "level": "${INPUT_LEVEL}",
+  "badge": "${INPUT_BADGE}",
+  "autoCopy": "${INPUT_AUTOCOPY}",
+  "copy": "${INPUT_COPY}",
+  "sound": "${INPUT_SOUND}",
+  "call": "${INPUT_CALL}",
+  "icon": "${INPUT_ICON}",
+  "group": "${INPUT_GROUP}",
+  "ciphertext": "${INPUT_CIPHERTEXT}",
+  "volume": "${INPUT_VOLUME}",
+  "isArchive": "${INPUT_ISARCHIVE}",
+  "url": "${INPUT_URL}"
+}
+EOF
+)
 
 echo -e "${cyan}Request url${none}: ${request_url}"
 echo -e "${cyan}Request body${none}:\n${request_body//&/\\n}"
 
-http_code=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "${request_body}" "${request_url}")
+# 发送请求
+http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+  -X POST \
+  -H "Content-Type: application/json; charset=utf-8" \
+  -d "$request_body" \
+  "${request_url}")
+
 if [[ $http_code == 200 ]]; then
   echo -e "${green}Notification sent successfully${none}"
 else
