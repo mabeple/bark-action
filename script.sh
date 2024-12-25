@@ -19,27 +19,24 @@ fi
 
 request_url="${host}/${INPUT_KEY}/"
 
-# 创建 JSON 格式的请求体
-request_body=$(cat <<EOF
-{
-  "title": "${INPUT_TITLE}",
-  "subtitle": "${INPUT_SUBTITLE}",
-  "body": "${INPUT_BODY}",
-  "level": "${INPUT_LEVEL}",
-  "badge": "${INPUT_BADGE}",
-  "autoCopy": "${INPUT_AUTOCOPY}",
-  "copy": "${INPUT_COPY}",
-  "sound": "${INPUT_SOUND}",
-  "call": "${INPUT_CALL}",
-  "icon": "${INPUT_ICON}",
-  "group": "${INPUT_GROUP}",
-  "ciphertext": "${INPUT_CIPHERTEXT}",
-  "volume": "${INPUT_VOLUME}",
-  "isArchive": "${INPUT_ISARCHIVE}",
-  "url": "${INPUT_URL}"
-}
-EOF
-)
+request_body=""
+[[ -n "$INPUT_TITLE" ]] && request_body+="title=${INPUT_TITLE}&"
+[[ -n "$INPUT_SUBTITLE" ]] && request_body+="subtitle=${INPUT_SUBTITLE}&"
+[[ -n "$INPUT_BODY" ]] && request_body+="body=${INPUT_BODY}&"
+[[ -n "$INPUT_LEVEL" ]] && request_body+="level=${INPUT_LEVEL}&"
+[[ -n "$INPUT_BADGE" ]] && request_body+="badge=${INPUT_BADGE}&"
+[[ -n "$INPUT_AUTOCOPY" ]] && request_body+="autoCopy=${INPUT_AUTOCOPY}&"
+[[ -n "$INPUT_COPY" ]] && request_body+="copy=${INPUT_COPY}&"
+[[ -n "$INPUT_SOUND" ]] && request_body+="sound=${INPUT_SOUND}&"
+[[ -n "$INPUT_CALL" ]] && request_body+="call=${INPUT_CALL}&"
+[[ -n "$INPUT_ICON" ]] && request_body+="icon=${INPUT_ICON}&"
+[[ -n "$INPUT_GROUP" ]] && request_body+="group=${INPUT_GROUP}&"
+[[ -n "$INPUT_CIPHERTEXT" ]] && request_body+="ciphertext=${INPUT_CIPHERTEXT}&"
+[[ -n "$INPUT_VOLUME" ]] && request_body+="volume=${INPUT_VOLUME}&"
+[[ -n "$INPUT_ISARCHIVE" ]] && request_body+="isArchive=${INPUT_ISARCHIVE}&"
+[[ -n "$INPUT_URL" ]] && request_body+="url=${INPUT_URL}"
+
+request_body=${request_body%&}
 
 echo -e "${cyan}Request url${none}: ${request_url}"
 echo -e "${cyan}Request body${none}:\n${request_body//&/\\n}"
