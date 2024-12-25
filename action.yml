@@ -63,22 +63,21 @@ runs:
     - name: Run script
       shell: bash
       run: $GITHUB_ACTION_PATH/script.sh
-      with:
-        args:
-          - ${{ inputs.key }}
-          - ${{ inputs.host }}
-          - ${{ inputs.title }}
-          - ${{ inputs.subtitle }}
-          - ${{ inputs.body }}
-          - ${{ inputs.level }}
-          - ${{ inputs.badge }}
-          - ${{ inputs.autoCopy }}
-          - ${{ inputs.copy }}
-          - ${{ inputs.sound }}
-          - ${{ inputs.call }}
-          - ${{ inputs.icon }}
-          - ${{ inputs.group }}
-          - ${{ inputs.ciphertext }}
-          - ${{ inputs.volume }}
-          - ${{ inputs.isArchive }}
-          - ${{ inputs.url }}
+      env:
+        INPUT_KEY: ${{ inputs.key }}
+        INPUT_HOST: ${{ inputs.host }}
+        INPUT_TITLE: ${{ inputs.title }}
+        INPUT_SUBTITLE: ${{ inputs.subtitle }}
+        INPUT_BODY: ${{ inputs.body }}
+        INPUT_LEVEL: ${{ inputs.level }}
+        INPUT_BADGE: ${{ inputs.badge }}
+        INPUT_AUTOCOPY: ${{ inputs.autoCopy }}
+        INPUT_COPY: ${{ inputs.copy }}
+        INPUT_SOUND: ${{ inputs.sound }}
+        INPUT_CALL: ${{ inputs.call }}
+        INPUT_ICON: ${{ inputs.icon }}
+        INPUT_GROUP: ${{ inputs.group }}
+        INPUT_CIPHERTEXT: ${{ inputs.ciphertext }}
+        INPUT_VOLUME: ${{ inputs.volume }}
+        INPUT_ISARCHIVE: ${{ inputs.isArchive }}
+        INPUT_URL: ${{ inputs.url }}
